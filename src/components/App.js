@@ -6,13 +6,18 @@ import { useState, useEffect } from "react";
 
 const App = () => {
     const [productData, setProductData] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            const data = await fetch('https://dummyjson.com/products');
-            const json = await data.json();
+            try {
+                const data = await fetch('https://dummyjson.com/products');
+                const json = await data.json();
 
-            setProductData(JSON.stringify(json, null, 2));
+                setProductData(JSON.stringify(json, null, 2));
+            } catch (error) {
+                setError(error.message);
+            }
         }
 
         fetchData();
@@ -29,7 +34,11 @@ const App = () => {
                     </pre>
                 </>
             ) : (
-                <Loader />
+                error ? (
+                    <div style={{ color: 'red' }}>{error}</div>
+                ) : (
+                    <Loader />
+                )
             )}
         </div>
     )
