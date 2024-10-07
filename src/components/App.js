@@ -35,7 +35,7 @@ const App = () => {
                 </>
             ) : (
                 error ? (
-                    <div style={{ color: 'red' }}>{error}</div>
+                    <div style={{ color: 'red' }}>An error occurred: {error}</div>
                 ) : (
                     <Loader />
                 )
